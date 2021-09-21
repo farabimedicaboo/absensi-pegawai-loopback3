@@ -9,6 +9,7 @@
     "mixins": [
       "loopback/common/mixins",
       "loopback/server/mixins",
+      "../node_modules/@aliatech/loopback-mongo-aggregate-mixin/lib",
       "../common/mixins",
       "./mixins"
     ]
