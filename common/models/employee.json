@@ -22,7 +22,16 @@
     }
   },
   "validations": [],
-  "relations": {},
+  "relations": {
+    "attendances": {
+      "type": "hasMany",
+      "model": "Attendance",
+      "foreignKey": "employeeId",
+      "options": {
+        "nestRemoting": true
+      }
+    }
+  },
   "acls": [],
   "methods": {}
 }

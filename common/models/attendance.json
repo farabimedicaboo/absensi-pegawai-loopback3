@@ -33,7 +33,13 @@
     }
   },
   "validations": [],
-  "relations": {},
+  "relations": {
+    "employee": {
+      "type": "belongsTo",
+      "model": "Employee",
+      "foreignKey": "employeeId"
+    }
+  },
   "acls": [],
   "methods": {}
 }
