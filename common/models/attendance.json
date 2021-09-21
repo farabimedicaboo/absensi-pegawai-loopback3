@@ -1,0 +1,39 @@
+{
+  "name": "Attendance",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "status": {
+      "type": "string",
+      "required": true
+    },
+    "start": {
+      "type": "date",
+      "default": "$now"
+    },
+    "end": {
+      "type": "date"
+    },
+    "isApporved": {
+      "type": "boolean",
+      "default": true
+    },
+    "employeeId": {
+      "type": "string"
+    },
+    "createdAt": {
+      "type": "date",
+      "default": "$now"
+    },
+    "updatedAt": {
+      "type": "date"
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": {}
+}

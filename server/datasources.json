@@ -1,0 +1,13 @@
+{
+  "mongoDS": {
+    "host": "localhost",
+    "port": 27017,
+    "url": "",
+    "database": "absensi_pegawai_loopback",
+    "password": "",
+    "name": "mongoDS",
+    "user": "",
+    "useNewUrlParser": true,
+    "connector": "mongodb"
+  }
+}

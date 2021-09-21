@@ -1,0 +1,28 @@
+{
+  "name": "Employee",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "username": {
+      "type": "string",
+      "required": true
+    },
+    "name": {
+      "type": "string"
+    },
+    "createdAt": {
+      "type": "date",
+      "default": "$now"
+    },
+    "updatedAt": {
+      "type": "date"
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": {}
+}
