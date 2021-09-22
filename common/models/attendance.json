@@ -24,6 +24,9 @@
     "employeeId": {
       "type": "string"
     },
+    "keterangan": {
+      "type": "string"
+    },
     "createdAt": {
       "type": "date",
       "default": "$now"
