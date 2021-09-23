@@ -10,6 +10,7 @@ module.exports = function (Employee) {
     const endOfMonth = moment(`01-${bulan}-${tahun}`, "DD-MM-YYYY")
       .endOf("month")
       .utc();
+    const daysOfMonth = startOfMonth.daysInMonth();
 
     return Employee.aggregate([
       {
@@ -60,6 +61,10 @@ module.exports = function (Employee) {
                 $expr: { $eq: ["$employeeId", "$$employeeId"] },
                 isApproved: true,
                 status: "izin",
+                createdAt: {
+                  $gte: startOfMonth.toDate(),
+                  $lte: endOfMonth.toDate(),
+                },
               },
             },
           ],
@@ -92,6 +97,13 @@ module.exports = function (Employee) {
                 $and: [
                   { $expr: { $eq: ["$employeeId", "$$employeeId"] } },
                   { status: "hadir" },
+                  { isApproved: true },
+                  {
+                    createdAt: {
+                      $gte: startOfMonth.toDate(),
+                      $lte: endOfMonth.toDate(),
+                    },
+                  },
                 ],
               },
             },
@@ -122,12 +134,39 @@ module.exports = function (Employee) {
             telat: { $size: "$telat" },
             izin: { $size: "$izin" },
             cuti: { $size: "$cuti" },
+            tanpa_keterangan: {
+              $subtract: [
+                { $add: daysOfMonth },
+                {
+                  $sum: [
+                    { $size: "$hadir" },
+                    { $size: "$telat" },
+                    { $size: "$izin" },
+                    { $size: "$cuti" },
+                  ],
+                },
+              ],
+            },
           },
         },
       },
     ]);
   };
 
+  Employee.remoteMethod("laporan", {
+    http: {
+      path: "/laporan",
+      verb: "get",
+    },
+    accepts: [
+      { arg: "bulan", type: "number", required: true },
+      { arg: "tahun", type: "number", required: true },
+    ],
+    returns: {
+      arg: "data",
+      type: "string",
+    },
+  });
   Employee.remoteMethod("laporan", {
     http: {
       path: "/laporan",
