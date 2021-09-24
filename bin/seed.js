@@ -40,10 +40,10 @@ MongoClient.connect(url, function (err, client) {
   }
   EmployeeCollection.insertMany(users)
     .then(() => {
-      for (let i = 0; i < 10; i += 1) {
+      for (let i = 0; i < 100; i += 1) {
         let newAttendant = {
           status: _.sample(["hadir", "izin", "sakit"]),
-          start: moment().add(i, "days").format(),
+          start: moment().add(i, "days").utc()._d,
           employeeId: _.sampleSize(users).map((user) => user._id)[0],
           createdAt: moment().utc()._d,
           isApproved: true,

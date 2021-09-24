@@ -135,17 +135,40 @@ module.exports = function (Employee) {
             izin: { $size: "$izin" },
             cuti: { $size: "$cuti" },
             tanpa_keterangan: {
-              $subtract: [
-                { $add: daysOfMonth },
-                {
-                  $sum: [
-                    { $size: "$hadir" },
-                    { $size: "$telat" },
-                    { $size: "$izin" },
-                    { $size: "$cuti" },
+              $cond: {
+                if: {
+                  $gt: [
+                    {
+                      $subtract: [
+                        { $add: daysOfMonth },
+                        {
+                          $sum: [
+                            { $size: "$hadir" },
+                            { $size: "$telat" },
+                            { $size: "$izin" },
+                            { $size: "$cuti" },
+                          ],
+                        },
+                      ],
+                    },
+                    0,
                   ],
                 },
-              ],
+                then: {
+                  $subtract: [
+                    { $add: daysOfMonth },
+                    {
+                      $sum: [
+                        { $size: "$hadir" },
+                        { $size: "$telat" },
+                        { $size: "$izin" },
+                        { $size: "$cuti" },
+                      ],
+                    },
+                  ],
+                },
+                else: 0,
+              },
             },
           },
         },
